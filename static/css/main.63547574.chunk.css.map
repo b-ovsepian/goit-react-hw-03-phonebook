@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA,KACE,QAAS,CACT,YAAa,CAEb,mCACF,CAEA,KACE,yEAEF","file":"main.63547574.chunk.css","sourcesContent":["body {\n  margin: 0;\n  padding: 20px;\n\n  font-family: \"Montserrat\", sans-serif;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, \"Courier New\",\n    monospace;\n}\n"]}
