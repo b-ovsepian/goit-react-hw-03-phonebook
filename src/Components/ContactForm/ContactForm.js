@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
@@ -78,62 +78,54 @@ const Button = styled.button`
   }
 `;
 
-class ContactForm extends Component {
-  formInitialState = {
-    name: "",
-    number: "",
-  };
+const formInitialState = {
+  name: "",
+  number: "",
+};
 
-  state = {
-    name: "",
-    number: "",
-  };
+const ContactForm = ({ OnAddContact }) => {
+  const [{ name, number }, setForm] = useState({ ...formInitialState });
 
-  handlerInputChange = (e) => {
+  const handlerInputChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  handlerSubmit = (e) => {
-    const { name, number } = this.state;
+  const handlerSubmit = (e) => {
     e.preventDefault();
     const singleContact = {
       id: uuidv4(),
       name: name,
       number: number,
     };
-    console.log(singleContact);
-    this.props.OnAddContact(singleContact);
-    this.setState({ ...this.formInitialState });
+    OnAddContact(singleContact);
+    setForm({ ...formInitialState });
   };
 
-  render() {
-    const { name, number } = this.state;
-    return (
-      <Form autoComplete="on" onSubmit={this.handlerSubmit}>
-        <Label>
-          <LabelSpan>Name</LabelSpan>
-          <Input
-            type="text"
-            name="name"
-            value={name}
-            onChange={this.handlerInputChange}
-          />
-        </Label>
-        <Label>
-          <LabelSpan>Number</LabelSpan>
-          <Input
-            type="tel"
-            name="number"
-            value={number}
-            onChange={this.handlerInputChange}
-          />
-        </Label>
-        <Button type="submit">Add contact</Button>
-      </Form>
-    );
-  }
-}
+  return (
+    <Form autoComplete="on" onSubmit={handlerSubmit}>
+      <Label>
+        <LabelSpan>Name</LabelSpan>
+        <Input
+          type="text"
+          name="name"
+          value={name}
+          onChange={handlerInputChange}
+        />
+      </Label>
+      <Label>
+        <LabelSpan>Number</LabelSpan>
+        <Input
+          type="tel"
+          name="number"
+          value={number}
+          onChange={handlerInputChange}
+        />
+      </Label>
+      <Button type="submit">Add contact</Button>
+    </Form>
+  );
+};
 
 export default ContactForm;
 
